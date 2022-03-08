@@ -94,6 +94,90 @@ struct node* Deletion_a_key(struct node *head,int key){
     return head;
 
 }
+
+struct node* swap_node(struct node *head,int key1,int key2){
+
+   //cout<<head->next->data<<endl;
+   struct node *temp=head,*tail=NULL;
+   struct node *node1=NULL,*node2=NULL;
+   while(temp->data!=key1) temp=temp->next;
+   node1=temp;
+   temp=head;
+   while(temp->data!=key2) temp=temp->next;
+   node2=temp;
+   temp=head;
+   while(temp->next!=NULL) temp=temp->next;
+   tail=temp;
+   /// Possible Cases :
+   /// node 1 or node 2 can be head
+   if(node1==head){
+      temp=head;
+      while(temp->next!=node2) temp=temp->next;
+      temp->next=node1;
+      /// swapping start
+      temp=node2->next;
+      node2->next=node1->next;
+      node1->next=temp;
+      /// ends
+      head=node2;
+      return head;
+   }
+   if(node2==head){
+      temp=head;
+      while(temp->next!=node1) temp=temp->next;
+      temp->next=node2;
+      temp=node1->next; // storing pointer
+      node1->next=node2->next;
+      head=node1;
+      node2->next=temp;
+      return head;
+   }
+   if(node1==tail){
+      temp=head;
+      while(temp->next!=tail) temp=temp->next;
+      temp->next=node2;
+      node1->next=node2->next;
+      node2->next=NULL;
+      temp=head;
+      while(temp->next!=node2) temp=temp->next;
+      temp->next=node1;
+      return head;
+   }
+   if(node2==tail){
+      temp=head;
+      while(temp->next!=tail) temp=temp->next;
+      temp->next=node1;
+      node2->next=node1->next;
+      node1->next=NULL;
+      temp=head;
+      while(temp->next!=node1) temp=temp->next;
+      temp->next=node2;
+      return head;
+   }
+
+}
+
+struct node* Reverse(struct node *head){
+
+        struct node *current=head;
+        struct node *Next=NULL;
+        struct node *previous=NULL;
+        while(head!=NULL){
+            /// Storing The Current node
+            current=head;
+            /// String the adress of next node
+            Next=head->next;
+            /// Current Node adress change
+            current->next=previous;
+            /// Now previous node will be current node
+            previous=current;
+            /// Increment the pointer
+            head=Next;
+        }
+        head=current;
+        return head;
+
+}
 int main(){
 
     struct node *head=NULL;
@@ -118,5 +202,16 @@ int main(){
     PrintTheList(head);
     head=Deletion_a_key(head,800);
     PrintTheList(head);
+    head=swap_node(head,500,10);
+    PrintTheList(head);
+    head=swap_node(head,200,10);
+    PrintTheList(head);
+    head=swap_node(head,10,20);
+    PrintTheList(head);
+    head=swap_node(head,200,20);
+    PrintTheList(head);
+    head=Reverse(head);
+    PrintTheList(head);
+
 
 }
