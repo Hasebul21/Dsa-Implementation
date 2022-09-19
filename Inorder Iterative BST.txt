@@ -1,0 +1,20 @@
+stack<Node *>s;
+        Node *Curr=root;
+        int ans=0;
+    
+        while(Curr!=NULL||s.empty()==false){
+        
+          while(Curr!=NULL){
+            
+            s.push(Curr);
+            Curr=Curr->right;
+           }
+        
+           Curr=s.top();
+           s.pop();
+           int temp=Curr->data;
+           Curr->data=ans;
+           ans+=temp;
+           
+           Curr=Curr->left;
+        }
